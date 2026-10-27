@@ -1,0 +1,280 @@
+/* ===== Variables de la paleta ===== */
+:root {
+  --naranja: #FF6F00;
+  --morado: #4A148C;
+  --oro: #FFD54F;
+  --negro: #0d0614;
+  --fuente-titulo: 'Cinzel', Georgia, serif;
+  --fuente-texto: 'Playfair Display', Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  font-family: var(--fuente-texto);
+  color: var(--oro);
+  overflow-x: hidden;
+  background: radial-gradient(ellipse at 50% 60%, #1c0b2e 0%, var(--negro) 75%);
+  transition: background 1.5s ease;
+}
+/* Ofrenda encendida: la habitación se llena de luz cálida */
+body.encendido {
+  background: radial-gradient(ellipse at 50% 65%, #7a2f00 0%, #3a1250 45%, var(--negro) 90%);
+}
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+/* ===== Papel picado ===== */
+.papel-picado {
+  display: flex;
+  justify-content: space-around;
+  border-top: 3px solid var(--oro);
+}
+.papel-picado span {
+  width: clamp(26px, 7vw, 70px);
+  height: clamp(40px, 10vw, 95px);
+  background: var(--naranja);
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 87% 100%, 75% 80%, 62% 100%, 50% 80%, 37% 100%, 25% 80%, 12% 100%, 0 80%);
+  transform-origin: top center;
+  animation: balanceo 3.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.4s);
+  opacity: .9;
+}
+.papel-picado span:nth-child(3n+2) { background: var(--morado); }
+.papel-picado span:nth-child(3n)   { background: var(--oro); }
+.papel-picado span:nth-child(5n)   { background: #E91E63; }
+
+@keyframes balanceo {
+  0%, 100% { transform: rotate(-6deg); }
+  50%      { transform: rotate(6deg); }
+}
+
+/* ===== Altar ===== */
+.altar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem 5rem;
+}
+h1 {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.8rem, 6vw, 3.2rem);
+  letter-spacing: .1em;
+  text-align: center;
+  text-shadow: 0 0 18px var(--naranja);
+}
+.subtitulo { font-style: italic; margin-bottom: 1.5rem; opacity: .85; text-align: center; }
+
+/* Cada nivel es un escalón más ancho que el anterior */
+.nivel {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.4rem 1rem;
+  background: linear-gradient(180deg, #5b1ea0, var(--morado));
+  border: 2px solid var(--oro);
+  border-bottom-width: 6px;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.6);
+}
+.nivel-superior { width: min(94%, 600px); }
+.nivel-medio    { width: min(96%, 760px); gap: 1.4rem; }
+.nivel-inferior { width: min(100%, 900px); flex-wrap: nowrap; justify-content: space-around; }
+
+/* ===== Galería de fotografías ===== */
+.galeria {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 1.4rem; width: 100%;
+}
+.marco { position: relative; width: clamp(110px, 26vw, 160px); text-align: center; }
+.marco .foto {
+  aspect-ratio: 3 / 4;
+  border: 8px solid var(--oro);
+  outline: 3px solid #b8860b;
+  background: #2b1245;
+  box-shadow: 0 0 25px rgba(255,213,79,.3);
+  overflow: hidden;
+  animation: aparecer .6s ease;
+  transition: box-shadow 1s;
+}
+body.encendido .marco .foto { box-shadow: 0 0 35px rgba(255,111,0,.7); }
+.marco .foto img, .marco .foto svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+.marco figcaption {
+  margin-top: .5rem; font-size: .85rem; font-style: italic;
+  min-height: 1.3em; outline: none; cursor: text;
+}
+.marco figcaption:focus { border-bottom: 1px dashed var(--oro); }
+
+@keyframes aparecer { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+
+/* Botoncitos redondos (cambiar imagen / quitar) */
+.mini {
+  position: absolute; top: -8px;
+  width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--oro); color: #200a00; font-size: .8rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.6);
+  z-index: 3;
+  transition: transform .2s;
+}
+.mini:hover, .mini:focus-visible { transform: scale(1.2); outline: none; }
+.mini.cambiar { right: -8px; }
+.mini.quitar  { left: -8px; background: #e57373; }
+.marco .mini.quitar { left: auto; right: -10px; top: -10px; }
+
+/* ===== Ofrendas con imagen ===== */
+.ofrenda-wrap { position: relative; }
+.ofrenda {
+  display: flex; flex-direction: column; align-items: center; gap: .4rem;
+  padding: .7rem .9rem;
+  border-radius: 10px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,213,79,.4);
+  font-size: .85rem;
+  max-width: 130px;
+  text-align: center;
+  transition: transform .25s, box-shadow .25s;
+}
+.ofrenda-img {
+  width: clamp(56px, 15vw, 84px);
+  height: clamp(56px, 15vw, 84px);
+  object-fit: cover;
+  border-radius: 12px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.5));
+}
+.ofrenda:hover, .ofrenda:focus-visible {
+  transform: translateY(-5px) scale(1.06);
+  box-shadow: 0 0 18px var(--naranja);
+  outline: none;
+}
+
+/* ===== Velas ===== */
+.velas { display: flex; gap: clamp(.6rem, 4vw, 2rem); align-items: flex-end; }
+.vela { position: relative; width: 26px; height: 60px; display: flex; justify-content: center; }
+.vela.alta { height: 85px; }
+.vela b {
+  position: absolute; bottom: 0; width: 100%; height: 100%;
+  background: linear-gradient(90deg, #e8dcc0, #fff6dd, #e8dcc0);
+  border-radius: 4px 4px 2px 2px;
+}
+.vela .llama {
+  position: absolute; top: -26px; z-index: 2;
+  width: 14px; height: 28px;
+  background: radial-gradient(ellipse at 50% 75%, #fff 0%, var(--oro) 35%, var(--naranja) 70%, transparent 100%);
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  transform-origin: bottom center;
+  opacity: 0;
+  transition: opacity .8s;
+}
+body.encendido .vela .llama {
+  opacity: 1;
+  animation: parpadeo 1.2s infinite alternate ease-in-out;
+  filter: drop-shadow(0 0 10px var(--naranja)) drop-shadow(0 0 22px var(--oro));
+}
+body.encendido .vela:nth-child(odd) .llama { animation-duration: .9s; }
+@keyframes parpadeo {
+  0%   { transform: scale(1, 1) rotate(-2deg); }
+  25%  { transform: scale(.92, 1.08) rotate(2deg); }
+  50%  { transform: scale(1.05, .95) rotate(-1deg); }
+  75%  { transform: scale(.95, 1.1) rotate(3deg); }
+  100% { transform: scale(1, 1) rotate(0); }
+}
+
+/* ===== Cruz de sal ===== */
+.cruz { position: relative; width: 70px; height: 70px; }
+.cruz::before, .cruz::after {
+  content: ''; position: absolute;
+  background: repeating-linear-gradient(45deg, #fff, #ddd 2px, #fff 4px);
+  border-radius: 3px; box-shadow: 0 0 6px rgba(255,255,255,.5);
+}
+.cruz::before { left: 42%; top: 0; width: 16%; height: 100%; }
+.cruz::after  { top: 42%; left: 0; height: 16%; width: 100%; }
+.cruz-btn, .vela-btn { padding: .4rem; border-radius: 8px; }
+.cruz-btn:focus-visible, .vela-btn:focus-visible { outline: 2px solid var(--oro); }
+
+/* ===== Camino de pétalos ===== */
+.camino {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 4px;
+  width: min(100%, 900px);
+  padding: 1rem; margin-top: .5rem;
+}
+.camino .petalo-fijo {
+  width: 18px; height: 18px;
+  background: radial-gradient(circle at 30% 30%, #ffb74d, var(--naranja));
+  border-radius: 50% 0 50% 50%;
+}
+
+/* ===== Botones de acción ===== */
+.acciones {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: .8rem; margin-top: 1.5rem;
+}
+.btn-encender, .btn-sec {
+  padding: .8rem 1.6rem;
+  font-family: var(--fuente-titulo); font-size: 1rem; font-weight: 700;
+  border-radius: 40px;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-encender {
+  background: linear-gradient(135deg, var(--naranja), #ff9800);
+  color: #200a00;
+  box-shadow: 0 0 15px rgba(255,111,0,.5);
+}
+.btn-sec {
+  background: rgba(0,0,0,.4);
+  border: 2px solid var(--oro);
+  color: var(--oro);
+}
+.btn-encender:hover, .btn-sec:hover { transform: scale(1.05); box-shadow: 0 0 24px var(--naranja); }
+
+/* ===== Panel de sonido ===== */
+.panel-sonido {
+  position: fixed; right: 12px; bottom: 12px; z-index: 60;
+  display: flex; align-items: center; gap: .5rem;
+  padding: .4rem .8rem;
+  background: rgba(13,6,20,.85);
+  border: 1px solid var(--oro); border-radius: 30px;
+}
+.panel-sonido button { font-size: 1.2rem; padding: .2rem; }
+.panel-sonido input[type=range] { width: 80px; accent-color: var(--naranja); }
+
+/* ===== Tooltip ===== */
+.tooltip {
+  position: fixed; z-index: 50;
+  max-width: 260px; padding: .7rem .9rem;
+  background: rgba(13,6,20,.95);
+  border: 1px solid var(--oro); border-radius: 8px;
+  font-size: .85rem; line-height: 1.4; color: #fff3d6;
+  pointer-events: none;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .2s, transform .2s;
+}
+.tooltip.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== Lluvia de pétalos ===== */
+.lluvia { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 20; }
+.petalo {
+  position: absolute; top: -30px;
+  background: radial-gradient(circle at 30% 30%, #ffcc80, var(--naranja));
+  border-radius: 50% 0 50% 50%;
+  animation: caer linear forwards;
+}
+@keyframes caer {
+  to { transform: translate(var(--deriva), 110vh) rotate(var(--giro)); }
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 600px) {
+  .nivel-inferior { padding: 1rem .3rem; }
+  .vela { width: 20px; }
+  .cruz { width: 52px; height: 52px; }
+  .panel-sonido input[type=range] { width: 60px; }
+}
+
+/* Accesibilidad: reduce animaciones si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce) {
+  .papel-picado span, body.encendido .vela .llama { animation: none; }
+}

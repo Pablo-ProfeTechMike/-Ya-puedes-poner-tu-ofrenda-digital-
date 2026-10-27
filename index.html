@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Altar de Día de Muertos</title>
+  <!-- Tipografías: Cinzel (títulos) y Playfair Display cursiva (textos) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Papel picado animado -->
+  <header class="papel-picado" aria-hidden="true">
+    <span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span>
+    <span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span>
+    <span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span>
+    <span style="--i:9"></span><span style="--i:10"></span><span style="--i:11"></span>
+  </header>
+
+  <main class="altar">
+    <h1>Altar de Muertos</h1>
+    <p class="subtitulo">Porque nadie muere mientras se le recuerda</p>
+
+    <!-- NIVEL SUPERIOR: fotografías (las crea script.js) -->
+    <section class="nivel nivel-superior" aria-label="Nivel superior: fotografías">
+      <div class="galeria" id="galeria"></div>
+    </section>
+
+    <!-- NIVEL MEDIO: ofrendas con imagen (las crea script.js) -->
+    <section class="nivel nivel-medio" id="ofrendas" aria-label="Nivel medio: ofrendas"></section>
+
+    <!-- NIVEL INFERIOR: velas, cruz de sal -->
+    <section class="nivel nivel-inferior" aria-label="Nivel inferior: velas y cruz">
+      <div class="velas">
+        <button class="vela-btn" data-tip="Veladoras: su luz guía a las almas para que encuentren el camino a casa.">
+          <div class="vela alta"><i class="llama"></i><b></b></div>
+        </button>
+        <button class="vela-btn" data-tip="Veladoras: cada flama representa un alma; su calor da la bienvenida a quienes regresan.">
+          <div class="vela"><i class="llama"></i><b></b></div>
+        </button>
+      </div>
+
+      <button class="cruz-btn" data-tip="Cruz de sal: purifica el alma y la protege; señala los cuatro puntos cardinales para orientar a los difuntos.">
+        <div class="cruz"></div>
+      </button>
+
+      <div class="velas">
+        <button class="vela-btn" data-tip="Veladoras: la luz es símbolo de fe y esperanza en el reencuentro.">
+          <div class="vela"><i class="llama"></i><b></b></div>
+        </button>
+        <button class="vela-btn" data-tip="Veladoras: un camino de luz que ilumina la noche del 1 y 2 de noviembre.">
+          <div class="vela alta"><i class="llama"></i><b></b></div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Camino de pétalos de cempasúchil -->
+    <div class="camino" id="camino" data-tip="Cempasúchil: su color intenso y su aroma guían a las almas desde el cementerio hasta el hogar."></div>
+
+    <!-- Botones de acción -->
+    <div class="acciones">
+      <button class="btn-encender" id="btnEncender" aria-pressed="false">🕯️ Encender Ofrenda</button>
+      <button class="btn-sec" id="btnFotos">📷 Añadir fotografías</button>
+      <button class="btn-sec" id="btnOfrenda">➕ Añadir ofrenda</button>
+    </div>
+  </main>
+
+  <!-- Panel de sonido (esquina inferior derecha) -->
+  <aside class="panel-sonido" aria-label="Control de sonido">
+    <button id="btnSonido" aria-pressed="true" title="Activar o silenciar el sonido" aria-label="Activar o silenciar el sonido">🔊</button>
+    <input type="range" id="volumen" min="0" max="1" step="0.05" value="0.5" aria-label="Volumen">
+    <button id="btnMusica" title="Usar mi propia música de fondo" aria-label="Cargar mi propia música">🎵</button>
+  </aside>
+
+  <!-- Tooltip flotante reutilizable -->
+  <div class="tooltip" id="tooltip" role="tooltip"></div>
+
+  <!-- Contenedor de pétalos que caen -->
+  <div class="lluvia" id="lluvia" aria-hidden="true"></div>
+
+  <!-- Selectores de archivo ocultos -->
+  <input type="file" id="inputFotos"   accept="image/*" multiple hidden>
+  <input type="file" id="inputOfrenda" accept="image/*" hidden>
+  <input type="file" id="inputNueva"   accept="image/*" hidden>
+  <input type="file" id="inputAudio"   accept="audio/*" hidden>
+
+  <script src="script.js"></script>
+</body>
+</html>
