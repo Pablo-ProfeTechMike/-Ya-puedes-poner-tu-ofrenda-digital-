@@ -2,7 +2,7 @@
 
 Una ofrenda digital inspirada en la tradición mexicana del Día de Muertos, hecha con **HTML5, CSS3 y JavaScript puro**, sin librerías ni frameworks.
 
-![Vista previa del altar](preview.png)
+![Vista previa del altar](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzwC6jDGdAPEgH5_zIuzYLzPE8xqtMQGvab-vxE2Yn1_7LYPHjgPB7xkw&s=10)
 
 > *"Nadie muere mientras se le recuerda."*
 
